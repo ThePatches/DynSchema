@@ -36,10 +36,14 @@ class VarSchema:
 	def getSchema(self, inKey):
 		""" Gets a schema that matches the provided key """
 		if inKey is None or inKey == "":
-			return collection.find()
+			return None # TODO: Make this the generic case 
 		else:
 			collection = self.__db[SchemaColl]
-			return collection.find_one({"key": inKey})
+			schObj = collection.find_one({"key": inKey})
+			if schObj is None:
+				return None
+			else:
+				return schObj["schema"]
 
 	def addSchema(self, inKey, inSchema):
 		""" Adds a schema to the database """
@@ -52,18 +56,19 @@ def makeObject(inSchema):
 	outValue = {}
 	inJSON = json.loads(inSchema)
 	for key in inJSON:
+		nKey = str(key)
 		if inJSON[key] == "string":
-			outValue[key] = "empty"
-		elif inJSON[key] == "date":
-			outValue[key] = date.today()
+			outValue[nKey] = "empty"
+		elif inJSON[key] == "date": 
+			outValue[nKey] = date.today().isoformat()
 		elif inJSON[key] == "integer":
-			outValue[key] = 0
+			outValue[nKey] = 0
 		elif inJSON[key] == "decimal":
-			outValue[key] = 0.0
+			outValue[nKey] = 0.0
 		else:
 			pass
 
-	return outValue 
+	return outValue #str(outValue) 
 
 def convertToString(inObject): # actually, we can probably do this in JavaScript
 	""" Converts the passed in Object into a unicode string """	
@@ -77,6 +82,9 @@ if __name__ == "__main__":
 	#print nSchema.getSchema("firstschema")
 	#nSchema.addSchema("thirdschema", "{name: string, comment: string, target: string}")
 	#print nSchema.getSchema(None)
-	anObject = makeObject(u"{\"name\": \"string\", \"comment\": \"string\", \"target\": \"date\", \"amount\": \"decimal\"}")
+	#anObject = makeObject(u"{\"name\": \"string\", \"comment\": \"string\", \"amount\": \"date\"}")
+	nSchema.connect()
+	aSchema = nSchema.getSchema("mschema")
+	anObject = makeObject(aSchema["schema"])
 	print anObject
 	
