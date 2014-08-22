@@ -71,7 +71,6 @@ def convertToString(inObject): # actually, we can probably do this in JavaScript
 
 
 if __name__ == "__main__":
-	#print "Not implemented yet!"
 	nSchema = VarSchema()
 	#print nSchema.getSchema(None)
 	#nSchema.connect()

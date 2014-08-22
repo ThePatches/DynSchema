@@ -5,3 +5,9 @@ This project is about implementing user-defined schemas using mongodb and either
 
 #Setup
 You must install mongodb and python 2.7 (should be installed already if you're running OSX), and then you have to perform database setup. Simply run `mongo dbsetup.js` on your local installation (assuming that you've got no permissions restrictions in place) to preconfigure the database.
+
+##Python
+
+The python project has the following dependencies (installed via pip):
++ pymongo
++ flask
