@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 import varies
 import json
 
@@ -27,7 +27,9 @@ def get_object(inKey): #gets a basic schema
 		return "No schema found!"
 	else:
 		print theSchema
-		return theSchema
+		schema = "someSchema"
+		print schema
+		return render_template("schema.html", schema=schema) 
 
 @app.route("/add/schema", methods=["POST"])
 def add_schema():
@@ -36,7 +38,11 @@ def add_schema():
 	nKey = formData["key"]
 	print nKey
 	mongoTunnel.addSchema(nKey, formData["schema"])	
-	return "got data!" 
+	return "got data!"
+
+@app.route("/Temp")
+def temp_func():
+	return render_template("temp.html")
 
 if __name__ == "__main__":
-	app.run()
+	app.run(debug=True)
