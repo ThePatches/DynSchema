@@ -84,7 +84,7 @@ if __name__ == "__main__":
 	#print nSchema.getSchema(None)
 	#anObject = makeObject(u"{\"name\": \"string\", \"comment\": \"string\", \"amount\": \"date\"}")
 	nSchema.connect()
-	aSchema = nSchema.getSchema("mschema")
-	anObject = makeObject(aSchema["schema"])
-	print anObject
+	aSchema = nSchema.getSchema("myschema")
+	#anObject = makeObject(aSchema["schema"])
+	print aSchema
 	

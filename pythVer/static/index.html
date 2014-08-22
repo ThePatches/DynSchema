@@ -38,9 +38,13 @@
 				<select id="typeSelect">
 					<option>string</option>
 					<option>integer</option>
+					<option>decimal</option>
+					<option>date</option>
 				</select>
 				<button id="btnChoose">Add Field</button>
-			</div>
+			</div><br />
+			<input type="text" id="schemaName" />
+			<button id="btnSave">Save Schema</button>
 		<div>
 		
 		<script type="text/javascript">
@@ -48,6 +52,7 @@
 			var theType = $("#typeSelect");
 			var btnChoose = $("#btnChoose");
 			var chosenSpace = $("#chosenSpace");
+			var btnSave = $("#btnSave");
 			var schemaObj = {};
 
 			btnChoose.click(function(e) {
@@ -59,6 +64,18 @@
 				
 				//chosenSpace.append("<span>" + inType + "</span>");
 				chosenSpace.html(JSON.stringify(schemaObj));
+				fieldName.val('');
+				return false;
+			});
+
+			function sucFunc(data) {
+				chosenSpace.html(JSON.stringify(data));
+			}
+
+			btnSave.click(function(e) {
+				var theKey = $("#schemaName").val();
+				var data = {key: theKey, schema: JSON.stringify(schemaObj)};
+				$.post("/add/schema", data, sucFunc);
 			});
 		</script>		
 	</body>

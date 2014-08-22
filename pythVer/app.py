@@ -1,9 +1,11 @@
-from flask import Flask
+from flask import Flask, request
 import varies
 import json
 
 app = Flask(__name__, static_url_path='')
 anObject = varies.makeObject(u"{\"name\": \"string\", \"comment\": \"string\", \"target\": \"date\", \"amount\": \"decimal\"}")
+mongoTunnel = varies.VarSchema()
+mongoTunnel.connect()
 	
 
 @app.route("/")
@@ -20,15 +22,21 @@ def static_proxy(path):
 @app.route("/schema/<inKey>")
 def get_object(inKey): #gets a basic schema
 	#return "arrived!"
-	interface = varies.VarSchema()
-	interface.connect()
-	theSchema = interface.getSchema(inKey)
+	theSchema = mongoTunnel.getSchema(inKey)
 	if theSchema is None:
 		return "No schema found!"
 	else:
 		print theSchema
 		return theSchema
 
+@app.route("/add/schema", methods=["POST"])
+def add_schema():
+	#print request.form
+	formData = request.form
+	nKey = formData["key"]
+	print nKey
+	mongoTunnel.addSchema(nKey, formData["schema"])	
+	return "got data!" 
 
 if __name__ == "__main__":
 	app.run()
