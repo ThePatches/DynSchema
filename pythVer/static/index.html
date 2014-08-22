@@ -5,15 +5,61 @@
 		<script src="js/jquery-1.11.1.min.js"></script>
 		<!-- <script src="js/angular.min.js"></script> I want to see if I can do this w/o Angular
 		<script src="js/angular-route.min.js"></script> //--> 
+		<style type="text/css">
+			label {
+				width: 20%;
+				float: left;
+				clear: left;
+				padding-right: 5px;
+				text-align: right;
+			}
+
+			input[type="text"] {
+				clear: right;
+				float: left;
+			}
+			
+			select {
+				width: 10%;
+				float: left;
+				clear: right;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>Dynamic Schema Proof of Concept</h1>
-		<div>
-			<span style="width: 50%; text-align: center; margin: auto; float: left;">Schema Creation</span>
-			<div id="chosenSpace"><div>
-			<div id="chooseSpace">
-				:
+		<div style="width: 50%; margin: auto;">
+			<h2>Schema Creation</h2>
+			<div id="chosenSpace"><br />This is the space where chosen items go.</div>
+			<div id="chooseSpace"> 
+				<label for="fieldName">Field Name:</label>
+				<input type="text" id="fieldName" />
+				<label for="typeSelect">Type:</label>
+				<select id="typeSelect">
+					<option>string</option>
+					<option>integer</option>
+				</select>
+				<button id="btnChoose">Add Field</button>
 			</div>
-		<div>		
+		<div>
+		
+		<script type="text/javascript">
+			var fieldName = $("#fieldName");
+			var theType = $("#typeSelect");
+			var btnChoose = $("#btnChoose");
+			var chosenSpace = $("#chosenSpace");
+			var schemaObj = {};
+
+			btnChoose.click(function(e) {
+				var outObj = {};
+				var fName = fieldName.val();
+				var inType = theType.val();
+
+				schemaObj[fName] = inType;
+				
+				//chosenSpace.append("<span>" + inType + "</span>");
+				chosenSpace.html(JSON.stringify(schemaObj));
+			});
+		</script>		
 	</body>
 </html>
