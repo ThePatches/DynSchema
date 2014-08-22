@@ -28,8 +28,11 @@ def get_object(inKey): #gets a basic schema
 	else:
 		print theSchema
 		schema = "someSchema"
-		print schema
-		return render_template("schema.html", schema=schema) 
+		fullObject = {}
+		fullObject["key"] = inKey
+		fullObject["schema"] = theSchema
+		fullObject["object"] = varies.makeObject(theSchema)
+		return render_template("schema.html", schema=fullObject) 
 
 @app.route("/add/schema", methods=["POST"])
 def add_schema():
