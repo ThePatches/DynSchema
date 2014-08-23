@@ -1,5 +1,22 @@
 {% extends "layout.html" %}
 {% block body %}
 	{{ schema.key }}
-	{{ schema.object }}
+	{{ schema.schema }}
+	<ul>
+		{% for k in schema.schema %}
+			{% if schema.schema[k] == "integer" %}
+				<li>{{ k }}: <input type="text" id="{{ k }}" />(number)</li>
+			{% elif schema.schema[k] == "string" %}
+				<li>{{ k }}: <input type="text" id="{{ k }}" />(text)</li>
+			{% elif schema.schema[k] == "date" %}
+				<li>{{ k }}: <input type="text" id="{{ k }}" />(date)</li>
+			{% else %}
+				<li>{{ k }}</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+	<script type="text/javascript">
+		//alert("loaded!");
+		
+	</script>
 {% endblock %}

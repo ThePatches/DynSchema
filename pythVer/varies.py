@@ -68,7 +68,7 @@ def makeObject(inSchema):
 		else:
 			pass
 
-	return outValue #str(outValue) 
+	return outValue  
 
 def convertToString(inObject): # actually, we can probably do this in JavaScript
 	""" Converts the passed in Object into a unicode string """	

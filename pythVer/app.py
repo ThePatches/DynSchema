@@ -11,7 +11,6 @@ mongoTunnel.connect()
 @app.route("/")
 def root():
 	return app.send_static_file("index.html")
-	#return "Hello world!"
 
 import os
 @app.route("/js/<path:path>")
@@ -19,9 +18,9 @@ def static_proxy(path):
 	return app.send_static_file(os.path.join('js', path))
 
 
-@app.route("/schema/<inKey>")
+@app.route("/new/<inKey>")
 def get_object(inKey): #gets a basic schema
-	#return "arrived!"
+	print inKey
 	theSchema = mongoTunnel.getSchema(inKey)
 	if theSchema is None:
 		return "No schema found!"
@@ -30,18 +29,16 @@ def get_object(inKey): #gets a basic schema
 		schema = "someSchema"
 		fullObject = {}
 		fullObject["key"] = inKey
-		fullObject["schema"] = theSchema
+		fullObject["schema"] = json.loads(theSchema)
 		fullObject["object"] = varies.makeObject(theSchema)
 		return render_template("schema.html", schema=fullObject) 
 
 @app.route("/add/schema", methods=["POST"])
 def add_schema():
-	#print request.form
 	formData = request.form
 	nKey = formData["key"]
-	print nKey
 	mongoTunnel.addSchema(nKey, formData["schema"])	
-	return "got data!"
+	return True
 
 @app.route("/Temp")
 def temp_func():
