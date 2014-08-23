@@ -53,8 +53,10 @@ class VarSchema:
 		collection.insert({"key": inKey, "schema": inSchema})
 
 	def addRecord(self, record):
+		print record
 		collection = self.__db[ObjectColl]
-		collection.insert(record)
+		print collection
+		return collection.insert(record)
 
 def makeObject(inSchema):
 	""" Makes an Object from a Unicode String """
@@ -89,7 +91,7 @@ if __name__ == "__main__":
 	#print nSchema.getSchema(None)
 	#anObject = makeObject(u"{\"name\": \"string\", \"comment\": \"string\", \"amount\": \"date\"}")
 	nSchema.connect()
-	aSchema = nSchema.getSchema("myschema")
+	aSchema = nSchema.addRecord({"one": "two", "three": 3})
 	#anObject = makeObject(aSchema["schema"])
 	print aSchema
 	

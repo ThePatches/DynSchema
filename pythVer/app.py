@@ -44,10 +44,15 @@ def add_schema():
 def add_object():
 	#print "Got there!"
 	formData = request.form;
-	print formData
-	nKey = formData["key"]
-	print nKey
-	return "Something" 
+	#print formData
+	#nKey = formData["key"]
+	#print nKey
+	post = {}
+	for k in formData:
+		post[k] = formData[k] #TODO: make this work better with data types?
+
+	mongoTunnel.addRecord(post)
+	return "Success" 
 
 @app.route("/Temp")
 def temp_func():
