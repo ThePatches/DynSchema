@@ -7,6 +7,7 @@ from datetime import date
 dbName = "verSchema"
 SchemaUsers = "SchemaUsers"
 SchemaColl = "Schemas"
+ObjectColl = "Entries"
 
 class VarSchema:
 	__host = "localost"
@@ -50,6 +51,10 @@ class VarSchema:
 		# TODO: Add error handling here
 		collection = self.__db[SchemaColl]
 		collection.insert({"key": inKey, "schema": inSchema})
+
+	def addRecord(self, record):
+		collection = self.__db[ObjectColl]
+		collection.insert(record)
 
 def makeObject(inSchema):
 	""" Makes an Object from a Unicode String """

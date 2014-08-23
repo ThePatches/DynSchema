@@ -15,8 +15,34 @@
 			{% endif %}
 		{% endfor %}
 	</ul>
+	<div id="stuff">Stuff</div>
+	<button id="btnAdd">Add Entry</button>
 	<script type="text/javascript">
 		//alert("loaded!");
+		var btnAdd = $("#btnAdd");
+		/*{% for k in schema.object %}
+			var {{ k }} = $("#{{k}});
+		{% endfor %}*/
+
+		var newObject = {};
+		newObject["key"] = "{{ schema.key }}";
+		var someString = "";
+
+		function AddEntry() {
+			$("input").each(function() { // get all the info
+				newObject[this.id] = $(this).val();
+			});
 		
+			$("input").promise().done(function() { // Once the each function is done, do stuff
+				$("#stuff").html(JSON.stringify(newObject));
+				var inBody = {data: newObject};
+				$.post("/add/object", newObject, function(data){
+					alert(data);
+				});
+	
+			});
+		}
+
+		btnAdd.click(AddEntry);
 	</script>
 {% endblock %}

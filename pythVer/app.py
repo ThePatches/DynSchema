@@ -40,6 +40,15 @@ def add_schema():
 	mongoTunnel.addSchema(nKey, formData["schema"])	
 	return True
 
+@app.route("/add/object", methods=['POST'])
+def add_object():
+	#print "Got there!"
+	formData = request.form;
+	print formData
+	nKey = formData["key"]
+	print nKey
+	return "Something" 
+
 @app.route("/Temp")
 def temp_func():
 	return render_template("temp.html")
