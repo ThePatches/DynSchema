@@ -26,3 +26,7 @@ Most of the real stuff is in varies.py and app.py. **varies.py** contains an int
 1. Check the mongo database for the added item
 
 Note: I am going to flesh out the back half (which is loading the records based on the associated schema, but more on that later)
+
+##NodeJS
+
+This section will show up in a bit once I've implemented the Node version of this proof-of-concept
