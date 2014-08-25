@@ -52,7 +52,13 @@ def add_object():
 		post[k] = formData[k] #TODO: make this work better with data types?
 
 	mongoTunnel.addRecord(post)
-	return "Success" 
+	return "Success"
+
+@app.route("/view/object/<inID>")
+def view_object(inID):
+	document = mongoTunnel.getRecord(inID)
+	return render_template("entry.html", entry=document)	
+	 
 
 @app.route("/Temp")
 def temp_func():

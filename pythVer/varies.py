@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import json
 from datetime import date
+from bson.objectid import ObjectID
 
 # First version: Let's establish some constants
 
@@ -57,6 +58,15 @@ class VarSchema:
 		collection = self.__db[ObjectColl]
 		print collection
 		return collection.insert(record)
+
+	def getRecord(self, _id):
+		if _id is None or _id == "":
+			return None
+		else:
+			objID = ObjectID(_id)
+			collection = self.__db[ObjectColl]
+			document = collection.find_one({"_id" : objID})
+			return document
 
 def makeObject(inSchema):
 	""" Makes an Object from a Unicode String """
