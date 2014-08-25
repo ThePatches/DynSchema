@@ -64,6 +64,11 @@ def list_objects():
 	documents = mongoTunnel.getRecord(None)
 	# there is a cheating way to do this, btw, download whole doc, post the whole record to the view_object route
 	return render_template("list.html", docs=documents)
+
+@app.route("/list/schemas")
+def list_schemas():
+	schemas = mongoTunnel.getSchema("")
+	return render_template("schemalist.html", schemas=schemas)	
 	 
 
 @app.route("/Temp")

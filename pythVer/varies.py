@@ -37,10 +37,13 @@ class VarSchema:
 
 	def getSchema(self, inKey):
 		""" Gets a schema that matches the provided key """
+		collection = self.__db[SchemaColl]
 		if inKey is None or inKey == "":
-			return None # TODO: Make this the generic case 
+			outArray = []
+			for item in collection.find():
+				outArray.append(item["key"])
+			return outArray 
 		else:
-			collection = self.__db[SchemaColl]
 			schObj = collection.find_one({"key": inKey})
 			if schObj is None:
 				return None
