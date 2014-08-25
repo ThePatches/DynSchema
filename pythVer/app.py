@@ -55,9 +55,15 @@ def add_object():
 	return "Success"
 
 @app.route("/view/object/<inID>")
-def view_object(inID): #TODO: Pull the schema from the db as well.
+def view_object(inID):
 	document = mongoTunnel.getRecord(inID)
-	return render_template("entry.html", entry=document)
+	oSchema = json.loads(mongoTunnel.getSchema(document["key"]))
+	schema = {}
+	for key in oSchema:
+		schema[key] = oSchema[key]
+
+	fullDoc = {"doc": document, "schema": schema}
+	return render_template("entry.html", entry=fullDoc)
 
 @app.route("/list/objects")
 def list_objects():

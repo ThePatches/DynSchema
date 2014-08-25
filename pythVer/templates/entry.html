@@ -1,6 +1,31 @@
-{% extends "layout.html" %}
+{% extends "layout2.html" %}
 {% block body %}
 <div>
-	<h3>Object at {{ entry._id }}:</h3>
+	<h3>Object at {{ entry.doc._id }}:</h3>
+	<ul style="list-style-type" id="itemList">
+	</ul>
+	<button id="btnAdd">Add Item</button>
+	<script type="text/javascript">
+		var itemList = $("#itemList");	
+		function addItem(name, value, inType) {
+			var newItem = $("<li></li>");
+			newItem.html(name);
+			itemList.append(newItem);	
+		}
+
+		var theDocument = {};
+		var schema = {};
+		{% for sKey in entry.schema %}
+			schema["{{ sKey }}"] = "{{ entry.schema[sKey] }}";
+		{% endfor %}
+		// Make the document into a valid JSON object
+		{% for dKey in entry.doc %}
+		theDocument["{{ dKey }}"] = "{{ entry.doc[dKey] }}";
+		addItem("{{ dKey }}", "{{ entry.doc[dKey] }}", schema)
+		{% endfor %}
+
+		$("#btnAdd").click(function() {
+			addItem(JSON.stringify(theDocument), null, null); });
+	</script>
 </div>
 {% endblock %}
