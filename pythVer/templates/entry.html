@@ -9,23 +9,32 @@
 		var itemList = $("#itemList");	
 		function addItem(name, value, inType) {
 			var newItem = $("<li></li>");
-			newItem.html(name);
+			var someText = "Name:&nbsp;" + name + "&nbsp;Value:&nbsp;" + value + "&nbsp;Type:&nbsp;" + inType
+			newItem.html(someText);
 			itemList.append(newItem);	
 		}
 
 		var theDocument = {};
 		var schema = {};
+		// Make schema into a valid JSON object
 		{% for sKey in entry.schema %}
 			schema["{{ sKey }}"] = "{{ entry.schema[sKey] }}";
 		{% endfor %}
 		// Make the document into a valid JSON object
 		{% for dKey in entry.doc %}
 		theDocument["{{ dKey }}"] = "{{ entry.doc[dKey] }}";
-		addItem("{{ dKey }}", "{{ entry.doc[dKey] }}", schema)
+		{% if dKey == "key" %}
+			$.noop();
+		{% elif dKey == "_id" %}
+			$.noop();
+		{% else %}
+			addItem("{{ dKey }}", "{{ entry.doc[dKey] }}", schema["{{ dKey }}"])
+		{% endif %}
 		{% endfor %}
 
 		$("#btnAdd").click(function() {
-			addItem(JSON.stringify(theDocument), null, null); });
+			addItem(JSON.stringify(theDocument), null, null);
+		 });
 	</script>
 </div>
 {% endblock %}

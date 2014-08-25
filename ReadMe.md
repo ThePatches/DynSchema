@@ -23,7 +23,8 @@ Most of the real stuff is in varies.py and app.py. **varies.py** contains an int
 1. Go to http://localhost:5000/ and add a new schema
 1. Browse to http://localhost:5000/new/<schema_name> and fill out the form
 1. Click the _Add Entry_ Button on the Entry adding page
-1. Check the mongo database for the added item
+1. Click the "Go To Objects" Link at the bottom of the page
+1. Click on one of the created object links on the "Objects" Page 
 
 Note: I am going to flesh out the back half (which is loading the records based on the associated schema, but more on that later)
 
