@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import json
 from datetime import date
-from bson.objectid import ObjectID
+from bson.objectid import ObjectId
 
 # First version: Let's establish some constants
 
@@ -60,11 +60,14 @@ class VarSchema:
 		return collection.insert(record)
 
 	def getRecord(self, _id):
+		collection = self.__db[ObjectColl]
 		if _id is None or _id == "":
-			return None
+			outArray = []
+			for item in collection.find():
+				outArray.append(item)
+			return outArray 
 		else:
-			objID = ObjectID(_id)
-			collection = self.__db[ObjectColl]
+			objID = ObjectId(_id)
 			document = collection.find_one({"_id" : objID})
 			return document
 
@@ -101,7 +104,8 @@ if __name__ == "__main__":
 	#print nSchema.getSchema(None)
 	#anObject = makeObject(u"{\"name\": \"string\", \"comment\": \"string\", \"amount\": \"date\"}")
 	nSchema.connect()
-	aSchema = nSchema.addRecord({"one": "two", "three": 3})
+	#aSchema = nSchema.addRecord({"one": "two", "three": 3})
 	#anObject = makeObject(aSchema["schema"])
-	print aSchema
+	objectz = nSchema.getRecord(None)
+	print objectz 
 	

@@ -55,9 +55,15 @@ def add_object():
 	return "Success"
 
 @app.route("/view/object/<inID>")
-def view_object(inID):
+def view_object(inID): #TODO: Pull the schema from the db as well.
 	document = mongoTunnel.getRecord(inID)
-	return render_template("entry.html", entry=document)	
+	return render_template("entry.html", entry=document)
+
+@app.route("/list/objects")
+def list_objects():
+	documents = mongoTunnel.getRecord(None)
+	# there is a cheating way to do this, btw, download whole doc, post the whole record to the view_object route
+	return render_template("list.html", docs=documents)
 	 
 
 @app.route("/Temp")

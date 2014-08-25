@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block body %}
+<div>
+	<h2>Document List</h2>
+	<ul style="list-style-type: none">
+		{% for item in docs %}
+			<li><a href="/view/object/{{ item._id }}">{{ item._id }}</a></li>
+		{% endfor %}
+	</ul>
+<div>
+{% endblock %}
